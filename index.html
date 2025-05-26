@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registro de Marca - ADLF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins :wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rojo: #FF2E2E;
+            --negro: #0A0A0A;
+            --blanco: #FFFFFF;
+            --gris-suave: #1C1C1C;
+            --degradado-rojo: linear-gradient(135deg, #FF2E2E 0%, #8B0000 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--negro);
+            color: var(--blanco);
+            line-height: 1.7;
+            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--negro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease forwards 2s;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--rojo);
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Flecha Flotante */
+        .floating-arrow {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 2s infinite;
+            opacity: 0.8;
+            z-index: 100;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-15px) translateX(-50%); }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--degradado-rojo);
+            padding: 6rem 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Carrusel de Fotos */
+        .carousel-section {
+            padding: 4rem 2rem;
+            background: var(--negro);
+        }
+
+        .carousel {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255,46,46,0.2);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* Historia */
+        .story-section {
+            padding: 4rem 2rem;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%23101010"/></svg>');
+        }
+
+        .story-card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid var(--rojo);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(255,46,46,0.1);
+        }
+
+        .highlight-text {
+            color: var(--rojo);
+            font-weight: 700;
+            border-bottom: 2px dashed var(--rojo);
+        }
+
+        /* CTA Formulario */
+        .cta-section {
+            padding: 4rem 2rem;
+            background: var(--negro);
+        }
+
+        .form-container {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,46,46,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,46,46,0.1) 0%, transparent 70%);
+            animation: pulse 6s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+
+        .form-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(50, 50, 50, 0.5);
+            border: 1px solid rgba(255,46,46,0.3);
+            border-radius: 8px;
+            color: #FFF;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--rojo);
+            box-shadow: 0 0 15px rgba(255,46,46,0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--degradado-rojo);
+            border: none;
+            border-radius: 8px;
+            color: #FFF;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::after {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,46,46,0.1);
+        }
+
+        .footer-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-top: 1rem;
+        }
+
+        /* Confirmación */
+        .confirmation {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .checkmark {
+            font-size: 4rem;
+            color: var(--rojo);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .carousel img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Pantalla de Carga -->
+<div class="loader-container">
+    <div class="loader"></div>
+</div>
+
+<!-- Contenido Principal -->
+<div class="page-content" style="display: none;">
+    <div class="floating-arrow">▼</div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">Registra tu <span class="highlight-text">Marca Profesional</span></h1>
+        <p class="hero-subtitle">Completa los siguientes datos para comenzar el proceso de registro</p>
+    </section>
+
+    <!-- Carrusel de Fotos -->
+    <section class="carousel-section">
+        <div class="carousel">
+            <img src="https://i.pinimg.com/1200x/be/75/50/be75505a7b71674000e7e085999b2d87.jpg " alt="Imagen Principal">
+        </div>
+    </section>
+
+    <!-- Historia -->
+    <section class="story-section">
+        <div class="story-card">
+            <p>Hola, gracias por confiar en nosotros. Para poder comenzar con el trámite de registro de tu marca, necesitamos algunos datos personales y de contacto. Todo será tratado con absoluta confidencialidad y solo se utilizará con fines legales y administrativos.</p>
+        </div>
+    </section>
+
+    <!-- Formulario -->
+    <section class="cta-section">
+        <div class="form-container">
+            <h2 class="form-title">Formulario de Registro</h2>
+            <form id="contactForm" enctype="multipart/form-data">
+                <input type="text" id="nombreCompleto" placeholder="Nombre completo *" required>
+                <input type="text" id="carnetIdentidad" placeholder="Carnet de Identidad *" required>
+                <input type="text" id="direccionCodigoPostal" placeholder="Dirección y Código Postal *" required>
+                <input type="tel" id="telefono" placeholder="Teléfono *" required>
+                <input type="email" id="correo" placeholder="Correo electrónico *" required>
+                <label for="denominacionMarca">Denominación de la marca (nombre y diseño)</label>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: -0.5rem;">El usuario debe subir una foto del diseño del logo junto con el nombre de la marca del salón.</p>
+                <input type="file" id="denominacionMarca" accept="image/*" required>
+                <img id="previewImg" style="width:100%; max-width:100%; max-height:200px; margin-top:1rem; border-radius:8px; display:none;" />
+                <button type="submit">Enviar Datos</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Confirmación -->
+    <section class="confirmation" id="confirmationSection">
+        <div class="checkmark">✅</div>
+        <h2>¡Datos enviados correctamente!</h2>
+        <p>Nos pondremos en contacto contigo pronto.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ADLF</p>
+        <img src="https://i.pinimg.com/736x/09/b9/d6/09b9d622bb6ce4225be48d9a86465407.jpg " alt="Logo ADLF" class="footer-logo">
+    </footer>
+</div>
+
+<script>
+    // Mostrar contenido después del loader
+    window.addEventListener("load", function () {
+        document.querySelector(".loader-container").style.display = "none";
+        document.querySelector(".page-content").style.display = "block";
+    });
+
+    // Formulario
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombreCompleto').value.trim();
+        const ci = document.getElementById('carnetIdentidad').value.trim();
+        const direccion = document.getElementById('direccionCodigoPostal').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const denominacionInput = document.getElementById('denominacionMarca');
+        const file = denominacionInput.files[0];
+
+        if (!nombre || !ci || !direccion || !telefono || !correo || !file) {
+            alert("Por favor, completa todos los campos.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('photo', file);
+        formData.append('caption', `📩 Nuevo Registro de Marca\n\n👤 Nombre: ${nombre}\n🧾 CI: ${ci}\n🏠 Dirección y CP: ${direccion}\n📞 Teléfono: ${telefono}\n📧 Correo: ${correo}`);
+
+        const botToken = '7609445234:AAHaIOs_atVGpS9dfD5VPpv5ohxW0dduMhQ';
+        const chatId = '929759981';
+
+        fetch(`https://api.telegram.org/bot ${botToken}/sendPhoto`, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('contactForm').style.display = 'none';
+                document.getElementById('confirmationSection').style.display = 'flex';
+            } else {
+                throw new Error('Telegram API no respondió bien');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al enviar los datos. Inténtalo nuevamente.');
+        });
+    });
+
+    // Previsualización de imagen
+    document.getElementById('denominacionMarca').addEventListener('change', function(event) {
+        const preview = document.getElementById('previewImg');
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert("La imagen supera los 5 MB. Por favor, selecciona una más pequeña.");
+                this.value = "";
+                preview.style.display = 'none';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
