@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Registro de Marca - ADLF</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins :wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --rojo: #FF2E2E;
@@ -42,10 +42,10 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            animation: fadeOut 1s ease forwards 2s;
+            animation: fadeOutLoader 0.5s ease forwards 2s;
         }
 
-        @keyframes fadeOut {
+        @keyframes fadeOutLoader {
             to { opacity: 0; visibility: hidden; }
         }
 
@@ -72,6 +72,9 @@
             animation: float 2s infinite;
             opacity: 0.8;
             z-index: 100;
+            font-size: 1.5rem;
+            color: var(--rojo);
+            cursor: pointer;
         }
 
         @keyframes float {
@@ -83,6 +86,11 @@
         .hero-section {
             background: var(--degradado-rojo);
             padding: 6rem 2rem;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             text-align: center;
         }
@@ -119,9 +127,9 @@
 
         .carousel img {
             width: 100%;
-            height: 400px;
+            height: 450px;
             object-fit: cover;
-            border-radius: 15px;
+            display: block;
         }
 
         /* Historia */
@@ -138,14 +146,18 @@
             max-width: 900px;
             margin: 0 auto;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(255,46,46,0.1);
         }
 
         .highlight-text {
             color: var(--rojo);
             font-weight: 700;
-            border-bottom: 2px dashed var(--rojo);
         }
+        .hero-section .highlight-text {
+             border-bottom: 2px dashed var(--rojo);
+        }
+
 
         /* CTA Formulario */
         .cta-section {
@@ -186,19 +198,42 @@
             font-family: 'Poppins', sans-serif;
             font-size: 2rem;
             margin-bottom: 2rem;
+            text-align: center;
         }
 
-        input {
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="file"] {
             width: 100%;
             padding: 1rem;
-            margin: 1rem 0;
+            margin: 0.75rem 0;
             background: rgba(50, 50, 50, 0.5);
             border: 1px solid rgba(255,46,46,0.3);
             border-radius: 8px;
             color: #FFF;
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
         }
+        
+        input[type="file"] {
+            padding: 0.7rem;
+        }
+        input[type="file"]::file-selector-button {
+            background-color: var(--rojo);
+            color: var(--blanco);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        input[type="file"]::file-selector-button:hover {
+             background-color: #8B0000;
+        }
+
 
         input:focus {
             outline: none;
@@ -206,19 +241,32 @@
             box-shadow: 0 0 15px rgba(255,46,46,0.3);
         }
 
-        button {
+        label[for="denominacionMarca"] {
+            display: block;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        button[type="submit"] {
             width: 100%;
             padding: 1.2rem;
+            margin-top: 1.5rem;
             background: var(--degradado-rojo);
             border: none;
             border-radius: 8px;
             color: #FFF;
             font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,46,46,0.4);
         }
 
         button::after {
@@ -238,17 +286,35 @@
 
         /* Footer */
         footer {
-            padding: 2rem;
+            padding: 3rem 2rem;
             text-align: center;
             border-top: 1px solid rgba(255,46,46,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .footer-logo {
-            width: 40px;
-            height: 40px;
+            width: 60px; /* Ligeramente más grande para destacar */
+            height: 60px;
             border-radius: 50%;
-            margin-top: 1rem;
+            border: 2px solid var(--rojo);
+            margin-bottom: 0.75rem; /* Espacio entre logo y "ADLF" */
         }
+        
+        .footer-brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem; /* Tamaño para "ADLF" */
+            font-weight: 700;
+            color: var(--blanco);
+            margin-bottom: 0.5rem; /* Espacio entre "ADLF" y copyright */
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
 
         /* Confirmación */
         .confirmation {
@@ -258,10 +324,11 @@
             justify-content: center;
             text-align: center;
             padding: 4rem 2rem;
-            animation: fadeIn 1s ease forwards;
+            min-height: 50vh;
+            animation: fadeInContent 1s ease forwards;
         }
 
-        @keyframes fadeIn {
+        @keyframes fadeInContent {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
@@ -271,14 +338,53 @@
             color: var(--rojo);
             margin-bottom: 1rem;
         }
+        .confirmation h2 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
             .carousel img {
-                height: 300px;
+                height: 350px;
+            }
+            .story-card, .form-container {
+                padding: 2rem;
+            }
+            .form-title {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+             .carousel img {
+                height: 250px;
+            }
+            input[type="text"],
+            input[type="tel"],
+            input[type="email"] {
+                font-size: 0.9rem;
+            }
+             button[type="submit"] {
+                font-size: 1rem;
+             }
+            .footer-logo {
+                width: 50px;
+                height: 50px;
+            }
+            .footer-brand-name {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -292,42 +398,44 @@
 
 <!-- Contenido Principal -->
 <div class="page-content" style="display: none;">
-    <div class="floating-arrow">▼</div>
+    <div class="floating-arrow" id="floatingArrow">▼</div>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <h1 class="hero-title">Registra tu <span class="highlight-text">Marca Profesional</span></h1>
-        <p class="hero-subtitle">Completa los siguientes datos para comenzar el proceso de registro</p>
+        <p class="hero-subtitle">Completa los siguientes datos para comenzar el proceso de registro con ADLF.</p>
     </section>
 
     <!-- Carrusel de Fotos -->
     <section class="carousel-section">
         <div class="carousel">
-            <img src="https://i.pinimg.com/1200x/be/75/50/be75505a7b71674000e7e085999b2d87.jpg " alt="Imagen Principal">
+            <img src="https://i.pinimg.com/1200x/be/75/50/be75505a7b71674000e7e085999b2d87.jpg" alt="Imagen Representativa Marca Profesional">
         </div>
     </section>
 
     <!-- Historia -->
     <section class="story-section">
         <div class="story-card">
-            <p>Hola, gracias por confiar en nosotros. Para poder comenzar con el trámite de registro de tu marca, necesitamos algunos datos personales y de contacto. Todo será tratado con absoluta confidencialidad y solo se utilizará con fines legales y administrativos.</p>
+            <p>¡Hola! Gracias por elegir ADLF para el registro de tu marca. Para iniciar este importante proceso, requerimos algunos datos personales y de contacto. <span class="highlight-text">Tu información será tratada con la máxima confidencialidad</span> y se utilizará exclusivamente para los fines legales y administrativos correspondientes al registro de marca.</p>
         </div>
     </section>
 
     <!-- Formulario -->
-    <section class="cta-section">
+    <section class="cta-section" id="formulario">
         <div class="form-container">
             <h2 class="form-title">Formulario de Registro</h2>
             <form id="contactForm" enctype="multipart/form-data">
-                <input type="text" id="nombreCompleto" placeholder="Nombre completo *" required>
-                <input type="text" id="carnetIdentidad" placeholder="Carnet de Identidad *" required>
-                <input type="text" id="direccionCodigoPostal" placeholder="Dirección y Código Postal *" required>
-                <input type="tel" id="telefono" placeholder="Teléfono *" required>
-                <input type="email" id="correo" placeholder="Correo electrónico *" required>
-                <label for="denominacionMarca">Denominación de la marca (nombre y diseño)</label>
-                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: -0.5rem;">El usuario debe subir una foto del diseño del logo junto con el nombre de la marca del salón.</p>
-                <input type="file" id="denominacionMarca" accept="image/*" required>
-                <img id="previewImg" style="width:100%; max-width:100%; max-height:200px; margin-top:1rem; border-radius:8px; display:none;" />
+                <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Nombre completo *" required>
+                <input type="text" id="carnetIdentidad" name="carnetIdentidad" placeholder="Carnet de Identidad *" required>
+                <input type="text" id="direccionCodigoPostal" name="direccionCodigoPostal" placeholder="Dirección y Código Postal *" required>
+                <input type="tel" id="telefono" name="telefono" placeholder="Teléfono *" required pattern="[0-9\s\+\-()]{7,20}">
+                <input type="email" id="correo" name="correo" placeholder="Correo electrónico *" required>
+                
+                <label for="denominacionMarca">Denominación de la marca (logo/diseño)</label>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: -0.5rem; margin-bottom: 0.5rem;">Sube una imagen clara de tu logo o diseño. Tamaño máximo: 5MB.</p>
+                <input type="file" id="denominacionMarca" name="denominacionMarca" accept="image/*" required>
+                <img id="previewImg" src="#" alt="Previsualización del logo" style="width:100%; max-width:150px; max-height:150px; margin-top:1rem; border-radius:8px; display:none; object-fit:contain; border: 1px solid var(--gris-suave);" />
+                
                 <button type="submit">Enviar Datos</button>
             </form>
         </div>
@@ -337,87 +445,162 @@
     <section class="confirmation" id="confirmationSection">
         <div class="checkmark">✅</div>
         <h2>¡Datos enviados correctamente!</h2>
-        <p>Nos pondremos en contacto contigo pronto.</p>
+        <p>Gracias por completar el formulario. Nos pondremos en contacto contigo a la brevedad para continuar con el proceso de registro de tu marca.</p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 ADLF</p>
-        <img src="https://i.pinimg.com/736x/09/b9/d6/09b9d622bb6ce4225be48d9a86465407.jpg " alt="Logo ADLF" class="footer-logo">
+        <img src="https://i.pinimg.com/736x/09/b9/d6/09b9d622bb6ce4225be48d9a86465407.jpg" alt="Logo ADLF" class="footer-logo">
+        <p class="footer-brand-name">ADLF</p>
+        <p class="footer-copyright">© <span id="currentYear"></span> Todos los derechos reservados.</p>
     </footer>
 </div>
 
 <script>
     // Mostrar contenido después del loader
     window.addEventListener("load", function () {
-        document.querySelector(".loader-container").style.display = "none";
-        document.querySelector(".page-content").style.display = "block";
-    });
-
-    // Formulario
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const nombre = document.getElementById('nombreCompleto').value.trim();
-        const ci = document.getElementById('carnetIdentidad').value.trim();
-        const direccion = document.getElementById('direccionCodigoPostal').value.trim();
-        const telefono = document.getElementById('telefono').value.trim();
-        const correo = document.getElementById('correo').value.trim();
-        const denominacionInput = document.getElementById('denominacionMarca');
-        const file = denominacionInput.files[0];
-
-        if (!nombre || !ci || !direccion || !telefono || !correo || !file) {
-            alert("Por favor, completa todos los campos.");
-            return;
+        const loaderContainer = document.querySelector(".loader-container");
+        const pageContent = document.querySelector(".page-content");
+        
+        if (loaderContainer) {
+            loaderContainer.style.display = "none";
         }
-
-        const formData = new FormData();
-        formData.append('photo', file);
-        formData.append('caption', `📩 Nuevo Registro de Marca\n\n👤 Nombre: ${nombre}\n🧾 CI: ${ci}\n🏠 Dirección y CP: ${direccion}\n📞 Teléfono: ${telefono}\n📧 Correo: ${correo}`);
-
-        const botToken = '7609445234:AAHaIOs_atVGpS9dfD5VPpv5ohxW0dduMhQ';
-        const chatId = '929759981';
-
-        fetch(`https://api.telegram.org/bot ${botToken}/sendPhoto`, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (response.ok) {
-                document.getElementById('contactForm').style.display = 'none';
-                document.getElementById('confirmationSection').style.display = 'flex';
-            } else {
-                throw new Error('Telegram API no respondió bien');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un problema al enviar los datos. Inténtalo nuevamente.');
-        });
+        if (pageContent) {
+            pageContent.style.display = "block";
+        }
+        
+        const currentYearElement = document.getElementById('currentYear');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
     });
 
-    // Previsualización de imagen
-    document.getElementById('denominacionMarca').addEventListener('change', function(event) {
-        const preview = document.getElementById('previewImg');
-        const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            if (file.size > 5 * 1024 * 1024) {
-                alert("La imagen supera los 5 MB. Por favor, selecciona una más pequeña.");
-                this.value = "";
-                preview.style.display = 'none';
+    const floatingArrow = document.getElementById('floatingArrow');
+    const formSection = document.getElementById('formulario');
+    if (floatingArrow && formSection) {
+        floatingArrow.addEventListener('click', () => {
+            formSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombreCompleto').value.trim();
+            const ci = document.getElementById('carnetIdentidad').value.trim();
+            const direccion = document.getElementById('direccionCodigoPostal').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const denominacionInput = document.getElementById('denominacionMarca');
+            const file = denominacionInput.files[0];
+
+            if (!nombre || !ci || !direccion || !telefono || !correo || !file) {
+                alert("Por favor, completa todos los campos obligatorios y adjunta el diseño de tu marca.");
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.style.display = 'none';
-        }
-    });
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo)) {
+                alert("Por favor, introduce un correo electrónico válido.");
+                document.getElementById('correo').focus();
+                return;
+            }
+            
+            const phoneRegex = /^[0-9\s\+\-()]{7,20}$/;
+            if (!phoneRegex.test(telefono)) {
+                alert("Por favor, introduce un número de teléfono válido.");
+                document.getElementById('telefono').focus();
+                return;
+            }
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+
+            const botToken = '7609445234:AAHaIOs_atVGpS9dfD5VPpv5ohxW0dduMhQ';
+            const chatId = '929759981';
+
+            const formData = new FormData();
+            // *** CORRECCIÓN: Añadir chat_id al FormData ***
+            formData.append('chat_id', chatId); 
+            formData.append('photo', file);
+            formData.append('caption', 
+`📩 Nuevo Registro de Marca - ADLF
+
+👤 Nombre Completo: ${nombre}
+💳 Carnet de Identidad: ${ci}
+🏠 Dirección y Código Postal: ${direccion}
+📞 Teléfono: ${telefono}
+📧 Correo Electrónico: ${correo}
+
+🖼️ Diseño de marca adjunto.`
+            );
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    document.getElementById('contactForm').style.display = 'none';
+                    document.querySelector('.cta-section .form-title').style.display = 'none';
+                    document.getElementById('confirmationSection').style.display = 'flex';
+                    window.scrollTo({ top: document.getElementById('confirmationSection').offsetTop - 100, behavior: 'smooth' });
+                } else {
+                    console.error('Error de Telegram:', data.description);
+                    // Mostrar el mensaje de error específico de Telegram si está disponible
+                    let errorMessage = 'Hubo un problema al enviar los datos. Inténtalo nuevamente.';
+                    if (data.description) {
+                        errorMessage = `Hubo un problema al enviar los datos: ${data.description}. Inténtalo nuevamente.`;
+                    }
+                    alert(errorMessage);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la petición fetch:', error);
+                alert('Hubo un problema de conexión o un error inesperado al enviar los datos. Por favor, revisa tu conexión e inténtalo nuevamente.');
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            });
+        });
+    }
+
+    const denominacionMarcaInput = document.getElementById('denominacionMarca');
+    const previewImg = document.getElementById('previewImg');
+
+    if (denominacionMarcaInput && previewImg) {
+        denominacionMarcaInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                if (file.size > 5 * 1024 * 1024) { 
+                    alert("La imagen supera los 5 MB. Por favor, selecciona una más pequeña.");
+                    this.value = "";
+                    previewImg.style.display = 'none';
+                    previewImg.src = "#";
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.style.display = 'none';
+                previewImg.src = "#";
+                if (file) {
+                    alert("Por favor, selecciona un archivo de imagen válido (JPG, PNG, GIF, etc.).");
+                    this.value = "";
+                }
+            }
+        });
+    }
 </script>
 
 </body>
